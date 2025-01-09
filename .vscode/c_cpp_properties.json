@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "WSL",
+            "includePath": [
+                "/usr/include",
+                "/usr/include/c++/13",
+                "/usr/include/x86_64-linux-gnu/c++/13",
+                "/home/rico/git/DartCounter/include"
+            ],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
