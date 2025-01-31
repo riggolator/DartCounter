@@ -3,6 +3,7 @@
 #include "../include/GameWindow.h"
 #include "../include/Player.h"
 #include "../include/ReadJson.h"
+#include "WriteJson.h"
 #include <string>
 
 void StartWindow::add_player(std::string player_name) {
@@ -83,6 +84,7 @@ void StartWindow::OnAddPlayer(wxCommandEvent &event) {
   if (!player_name.IsEmpty()) {
     if (Data::check_exist(player_name.ToStdString())) {
       Player p(player_name.ToStdString());
+      p.start_date = WriteJson::getCurrentDateTime();
       ReadJson::read_json(p);
       Data::print_player(p);
       players.push_back(p);
@@ -108,6 +110,7 @@ void StartWindow::OnNewPlayer(wxCommandEvent &event) {
       Data::create_player_file(player_name.ToStdString());
       if (Data::check_exist(player_name.ToStdString())) {
         Player p(player_name.ToStdString());
+        p.start_date = WriteJson::getCurrentDateTime();
         players.push_back(p);
         playerListBox->Append(player_name);
       } else {

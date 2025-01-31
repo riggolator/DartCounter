@@ -217,6 +217,8 @@ void GameWindow::OnNumberClick(wxCommandEvent &event) {
   players.at(current_player_index).update_score(player_score);
   current_multiplier = 1; // Zurücksetzen auf Standard
   throw_counter++;
+  Data::set_game_averages(players);
+  WriteJson::UpdatePlayerJson(players);
   if (throw_counter == 3) {
     scoreTexts.at(current_player_index)
         ->SetLabel(
@@ -225,6 +227,8 @@ void GameWindow::OnNumberClick(wxCommandEvent &event) {
         ->SetLabel(FinishOption::get_finish(
             players.at(current_player_index).get_score()));
     NextPlayer();
+    Data::set_game_averages(players);
+    WriteJson::UpdatePlayerJson(players);
   }
   scoreTexts.at(current_player_index)
       ->SetLabel(std::to_string(players.at(current_player_index).get_score()));
