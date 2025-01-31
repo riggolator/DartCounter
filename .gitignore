@@ -20,7 +20,8 @@ logs/*.log
 *.exe
 .cache/
 .gitigrnore.swp
-.build-static/
+build-static/
+build/
 data/
 data copy/
 test.json
