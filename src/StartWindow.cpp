@@ -3,6 +3,7 @@
 #include "../include/GameWindow.h"
 #include "../include/Player.h"
 #include "../include/ReadJson.h"
+#include "../include/StatisticWindow.h"
 #include "WriteJson.h"
 #include <string>
 
@@ -177,6 +178,6 @@ void StartWindow::OnStartGame_701(wxCommandEvent &event) {
 }
 
 void StartWindow::OnViewStatistics(wxCommandEvent &event) {
-  wxMessageBox("Statistics feature is not implemented yet.", "Info",
-               wxOK | wxICON_INFORMATION);
+  StatisticWindow *statistics_window = new StatisticWindow(players);
+  statistics_window->Show(true);
 }
