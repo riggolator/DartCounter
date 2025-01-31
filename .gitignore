@@ -1,0 +1,26 @@
+# Bestimmte Datei ignorieren
+geheime_daten.txt
+
+# Alle `.log`-Dateien ignorieren
+*.log
+
+# Einen gesamten Ordner ignorieren
+logs/
+
+# Bestimmte Datei im Ordner ignorieren (aber nicht den ganzen Ordner)
+logs/*.log
+
+# `.env`-Dateien ignorieren (z. B. für Umgebungsvariablen)
+.env
+
+# Alle `.DS_Store`-Dateien ignorieren (Mac)
+.DS_Store
+
+# Alle `.exe`-Dateien ignorieren
+*.exe
+.cache/
+.gitigrnore.swp
+.build-static/
+data/
+data copy/
+test.json
