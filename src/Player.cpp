@@ -7,7 +7,7 @@ Player::Player(const std::string added_playerName)
 
 void Player::update_score(int &score) { player_score = score; }
 int Player::get_score() { return player_score; }
-std::string Player::get_name() { return player_name; }
+std::string Player::get_name() const { return player_name; }
 
 void Player::add_finish(std::string &finish) {
   finish_options.push_back(finish);
