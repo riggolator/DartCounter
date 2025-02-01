@@ -6,7 +6,9 @@
                 "/usr/include",
                 "/usr/include/c++/13",
                 "/usr/include/x86_64-linux-gnu/c++/13",
-                "/home/rico/git/DartCounter/include"
+                "/usr/local/lib/wx/include",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/third_party"
             ],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
