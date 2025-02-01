@@ -44,7 +44,7 @@ public:
   int lost_leg_counter = 0;
   int played_legs = 0;
 
-  std::string get_name();
+  std::string get_name() const;
   void update_score(int &score);
   int get_score();
   void add_finish(std::string &finish);
