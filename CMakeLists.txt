@@ -9,6 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # wxWidgets suchen
 find_package(wxWidgets REQUIRED COMPONENTS core base)
+find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+include_directories(${Python3_INCLUDE_DIRS})
+include_directories(${Python3_NumPy_INCLUDE_DIRS})
+include_directories(third_party)  # Falls du matplotlibcpp.h in third_party/ hast
+
 
 # Include-Verzeichnisse
 include_directories(include)
@@ -23,5 +28,7 @@ include(${wxWidgets_USE_FILE})
 # Erstellen der ausführbaren Datei
 add_executable(DartCounter ${SOURCES})
 
-target_link_libraries(DartCounter ${wxWidgets_LIBRARIES})
+#target_link_libraries(DartCounter ${wxWidgets_LIBRARIES})
+target_link_libraries(DartCounter ${wxWidgets_LIBRARIES} ${Python3_LIBRARIES})
+
 
