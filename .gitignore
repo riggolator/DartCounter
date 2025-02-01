@@ -25,3 +25,7 @@ build/
 data/
 data copy/
 test.json
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
