@@ -26,3 +26,11 @@ void Player::add_to_round_sums() {
     round_sums.push_back(round_sum);
   }
 }
+
+void Player::set_thrown_darts_str(int &counter) {
+  thrown_darts_str = "|";
+  for (int i = 0; i < counter; i++) {
+    thrown_darts_str.append(" |");
+  }
+  std::cout << thrown_darts_str << std::endl;
+}

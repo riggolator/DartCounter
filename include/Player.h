@@ -32,17 +32,20 @@ public:
 
   // statistics
   float game_average = 0;
-  std::string start_date;
   int hundred_eighty_counter = 0;
   int jackson_counter = 0;
   int round_sum = 0;
-  std::vector<int> round_sums;
-  std::vector<std::pair<std::string, float>> game_averages;
-  std::vector<std::string> finish_options;
   int overthrown = 0;
   int won_leg_counter = 0;
   int lost_leg_counter = 0;
   int played_legs = 0;
+
+  std::string start_date;
+  std::string thrown_darts_str;
+
+  std::vector<int> round_sums;
+  std::vector<std::pair<std::string, float>> game_averages;
+  std::vector<std::string> finish_options;
 
   std::string get_name() const;
   void update_score(int &score);
@@ -50,6 +53,7 @@ public:
   void add_finish(std::string &finish);
   void reset_round();
   void add_to_round_sums();
+  void set_thrown_darts_str(int &counter);
 
 private:
   std::string player_name;
