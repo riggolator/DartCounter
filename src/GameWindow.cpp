@@ -204,6 +204,7 @@ void GameWindow::OnNumberClick(wxCommandEvent &event) {
     players.at(current_player_index).overthrown++;
     players.at(current_player_index).update_score(player_score);
     NextPlayer();
+    player_score = players.at(current_player_index).get_score();
   }
   // verhindere playerScore = 1
   if (player_score == 2 and multiplier != 2) {
