@@ -31,7 +31,7 @@ GameWindow::GameWindow(const std::vector<Player> &added_players,
   wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
 
   // Spielername und Score Sizer
-  wxGridSizer *playerGrid = new wxGridSizer(players.size(), 4, 5, 5);
+  wxGridSizer *playerGrid = new wxGridSizer(players.size(), 5, 5, 5);
 
   // Spieler und Scores anzeigen
   for (size_t i = 0; i < players.size(); ++i) {
@@ -47,6 +47,13 @@ GameWindow::GameWindow(const std::vector<Player> &added_players,
       playerText->SetForegroundColour(*wxRED);
     }
 
+    wxStaticText *thrown_darts_text =
+        new wxStaticText(panel, wxID_ANY, "", wxDefaultPosition, wxDefaultSize);
+    thrown_darts_text->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT,
+                                      wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+    thrown_darts_texts.push_back(
+        thrown_darts_text); // Speichere für spätere Updates
+
     wxStaticText *AverageText = new wxStaticText(
         panel, wxID_ANY, std::to_string(players.at(i).game_average),
         wxDefaultPosition, wxDefaultSize);
@@ -54,8 +61,6 @@ GameWindow::GameWindow(const std::vector<Player> &added_players,
                                 wxFONTWEIGHT_NORMAL));
     playerTexts.push_back(playerText);   // Speichere für spätere Updates
     AverageTexts.push_back(AverageText); // Speichere für spätere Updates
-    playerGrid->Add(playerText, 0, wxALL, 5);
-    playerGrid->Add(AverageText, 0, wxALL, 5);
 
     // Spieler Score
     wxStaticText *scoreText = new wxStaticText(
@@ -68,7 +73,6 @@ GameWindow::GameWindow(const std::vector<Player> &added_players,
                                 wxFONTWEIGHT_BOLD));
     }
     scoreTexts.push_back(scoreText); // Speichere für spätere Updates
-    playerGrid->Add(scoreText, 0, wxALL, 5);
     wxStaticText *FinishText = new wxStaticText(
         panel, wxID_ANY,
         FinishOption::get_finish(players.at(current_player_index).get_score()),
@@ -76,6 +80,11 @@ GameWindow::GameWindow(const std::vector<Player> &added_players,
     FinishText->SetFont(wxFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL,
                                wxFONTWEIGHT_NORMAL));
     FinishTexts.push_back(FinishText); // Speichere für spätere Updates
+
+    playerGrid->Add(playerText, 0, wxALL, 5);
+    playerGrid->Add(thrown_darts_text, 0, wxALL, 5);
+    playerGrid->Add(AverageText, 0, wxALL, 5);
+    playerGrid->Add(scoreText, 0, wxALL, 5);
     playerGrid->Add(FinishText, 0, wxALL, 5);
   }
 
@@ -141,15 +150,31 @@ void GameWindow::UpdatePlayerHighlight() {
 }
 
 void GameWindow::NextPlayer() {
+
+  std::cout << "im in next player: "
+            << players.at(current_player_index).thrown_darts_str << std::endl;
+
+  update_thrown_darts_text();
   throw_counter = 0; // Zurücksetzen der Würfe
 
   current_player_index =
       (current_player_index + 1) % players.size(); // Nächster Spieler
+  players.at(current_player_index).thrown_darts_str = "";
+  update_thrown_darts_text();
   UpdatePlayerHighlight();
 }
 
-void GameWindow::OnNumberClick(wxCommandEvent &event) {
+void GameWindow::update_thrown_darts_str() {
+  players.at(current_player_index).set_thrown_darts_str(throw_counter);
+  update_thrown_darts_text();
+}
 
+void GameWindow::update_thrown_darts_text() {
+  thrown_darts_texts.at(current_player_index)
+      ->SetLabel(players.at(current_player_index).thrown_darts_str);
+}
+
+void GameWindow::OnNumberClick(wxCommandEvent &event) {
   // Behandle die Nummernklicks
   int player_score = players.at(current_player_index).get_score();
 
@@ -203,6 +228,9 @@ void GameWindow::OnNumberClick(wxCommandEvent &event) {
     hit = 0;
     players.at(current_player_index).overthrown++;
     players.at(current_player_index).update_score(player_score);
+    //    players.at(current_player_index).thrown_darts_str = "";
+    //    update_thrown_darts_str();
+
     NextPlayer();
     player_score = players.at(current_player_index).get_score();
   }
@@ -217,6 +245,11 @@ void GameWindow::OnNumberClick(wxCommandEvent &event) {
   player_score -= hit;
   players.at(current_player_index).update_score(player_score);
   current_multiplier = 1; // Zurücksetzen auf Standard
+  players.at(current_player_index).set_thrown_darts_str(throw_counter);
+  update_thrown_darts_str();
+  // thrown_darts_texts.at(current_player_index)
+  //   ->SetLabel(players.at(current_player_index).thrown_darts_str);
+
   throw_counter++;
   Data::set_game_averages(players);
   WriteJson::UpdatePlayerJson(players);

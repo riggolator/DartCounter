@@ -52,9 +52,11 @@ private:
   int current_multiplier = 1; // Standardwert: Einfacher Wurf
   wxStaticText *scoreText;
   wxStaticText *player_name_text;
+  wxStaticText *thrown_darts_text;
   wxStaticText *AverageText;
   wxStaticText *FinishText;
   std::vector<wxStaticText *> playerTexts;
+  std::vector<wxStaticText *> thrown_darts_texts;
   std::vector<wxStaticText *> AverageTexts;
   std::vector<wxStaticText *> scoreTexts;
   std::vector<wxStaticText *> FinishTexts;
@@ -64,6 +66,8 @@ private:
   void OnTripleClick(wxCommandEvent &event);
   void NextPlayer();
   void UpdatePlayerHighlight();
+  void update_thrown_darts_str();
+  void update_thrown_darts_text();
 };
 
 #endif // GAMEWINDOW_H
